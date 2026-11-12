@@ -1,0 +1,9 @@
+node_modules/
+dist/
+release/
+tests/.generated/
+public/semantic/
+public/downloads/
+.env*
+*.tsbuildinfo
+.DS_Store

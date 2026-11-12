@@ -1,0 +1,2 @@
+const toggle=document.querySelector('#focus-toggle');
+toggle?.addEventListener('click',()=>{const on=toggle.getAttribute('aria-pressed')!=='true';toggle.setAttribute('aria-pressed',String(on));document.querySelector('#demo-feed').classList.toggle('focused',on);document.querySelectorAll('.off-topic').forEach(card=>{card.hidden=on});document.querySelector('#demo-status').textContent=on?'Two distractions cleared. Two good ideas kept.':'A little less noise is one click away.';});

@@ -1,0 +1,108 @@
+DEKCRAFT v0.6.0 — Arc / Chrome / Edge desktop
+
+1. Extract dekcraft-extension.zip.
+2. In Chrome, open chrome://extensions (Edge: edge://extensions).
+3. Enable Developer mode.
+4. Choose Load unpacked and select the extracted dekcraft-extension folder.
+5. Open YouTube, or refresh a YouTube tab that was already open.
+6. Click Settings in the floating Dekcraft toolbar to edit your interests.
+
+If you tried the web demo, export your preferences there, then import that
+JSON file from Settings in the extension. The web app does not automatically
+connect to the extension.
+
+The extension filters recommendation cards on YouTube Home and Watch pages.
+It leaves search, subscriptions, playlists and the video player alone.
+Click Check this page in the floating Dekcraft toolbar to flag loaded cards.
+Each flagged card shows why it was flagged. Nothing is hidden by a check.
+Click Block flagged videos to hide the reviewed cards, or Block this video on
+one flagged card. Undo block restores manually blocked cards. Show hidden
+reveals hidden cards temporarily. You can pause at any time.
+
+New or changed cards wait for another check. Changing preferences, navigation,
+or refresh clears the manual check and page-local blocks. Manual checks flag
+all off-topic picks, including discovery. They do not submit YouTube feedback.
+
+For continuous filtering with no off-topic discovery, click Only my interests
+in the YouTube toolbar. The button shows On or Off. Click it again to restore
+your previous filtering settings, including after a reload. If you are updating
+from an older version with no saved prior settings, Off stops automatic filtering.
+Turning it on enables Auto-filter, Strict mode and 0% discovery
+while preserving your interests and avoid list. The version is shown beside
+Dekcraft, and any cards kept for discovery are counted separately.
+
+To keep your existing discovery allowance, click Auto-filter: Off in the YouTube
+toolbar so it reads Auto-filter: On. This is also available under Settings >
+Auto-filter as you browse. It starts off to preserve manual checking. New and
+recycled cards are filtered as their titles load, including during scrolling.
+The toolbar shows how many cards are read and hidden. Your discovery budget still
+applies; choose Strict and 0% discovery to exclude all off-topic matches.
+0% discovery now disables off-topic allowances in every mode.
+Undo block does not disable automatic filtering. Show hidden suspends hiding
+until you click Hide again; its status is displayed in the toolbar.
+
+Click Hide widget to remove the floating controls. Filtering continues in the
+background. Restore them from Arc’s Extensions menu by clicking Dekcraft (or
+its pinned extension icon). Visibility is remembered across YouTube reloads.
+On unsupported pages the extension icon opens Settings instead.
+
+To update an existing unpacked installation, replace its folder contents with
+this release, press Reload on the browser's extensions page, and refresh your
+YouTube tabs. Keep the same folder path to retain the extension's preferences.
+
+Semantic blocking (new in v0.4): open Settings > Avoid list, add a broad topic
+such as food, and leave Match related topics on. Test title can verify examples
+before browsing. The local MiniLM model can relate restaurants and pizza to
+food even when that exact word is missing. Sensitivity is adjustable; lower is
+broader. Matching is approximate, especially for ambiguous or non-English titles.
+Show hidden reveals cards for review, including semantic match explanations.
+
+The model and WebAssembly runtime are included in this extension folder. No
+separate model download or AI server is used. The offscreen permission runs a
+shared worker away from the YouTube page. New titles are processed in small
+batches; the first check takes longer while the model starts. The toolbar shows
+checking meanings, semantic ready, or a failure with a retry button. Exact
+keyword rules keep working if semantic matching fails. No titles or embeddings
+are stored as browsing history. The cache is held only in memory.
+
+Semantic interests (new in v0.5): Settings > My intent > Keep related videos
+is on by default, including when updating from an older release. It compares
+new titles with your interest names and the first 12 comma-separated keyword
+examples per interest. Exact words still match immediately. For AI research,
+use examples such as machine learning and neural networks; for mathematics,
+linear algebra and geometry; for programming, coding and software. The model
+can keep backpropagation, eigenvectors and compiler videos without those exact
+keywords. These are semantic examples, not an exhaustive word list.
+
+Use Test title to inspect interest matches. Interest match sensitivity is
+separate from avoid-list sensitivity. Zero-priority interests are excluded.
+Avoided topics and channels always override interests. Strict mode and 0%
+discovery still keep semantic interest matches, including related Shorts.
+Automatic filtering evaluates newly loaded titles while the widget is hidden.
+Manual Check waits for both interest and avoid matching before flagging cards.
+If the model fails, keyword matching remains active and the toolbar shows a
+retry button; some related videos may be missed until the model is available.
+
+Edit your names and keyword examples under My intent. Weights choose between matching topics; they do not enforce
+a feed quota or change YouTube's own recommendations. An unrelated Short is
+filtered when Hide unrelated Shorts is enabled; matching Shorts are retained.
+
+Drift reminders use the last five recommendation clicks, after at least three
+selections, with a five-minute reminder cooldown. This is not watch history or
+watch-time tracking. Events are temporary and cleared when the browser closes.
+Titles, video IDs, and URLs are not stored in session insights.
+
+This is an early MVP. YouTube markup changes and may differ between accounts;
+unknown card layouts are left untouched. Keyword matching can miss context.
+It has been tested with representative card fixtures; live logged-in YouTube
+filtering requires verification in your browser. No Chrome Web Store release
+has been created. This is an unpacked installation.
+
+No account, analytics, remote inference, or paid API is used. Preferences stay
+in chrome.storage.local. The extension asks for storage, YouTube access, and an offscreen document for
+the local model worker.
+It never clicks Not interested or other platform feedback controls for you.
+
+To uninstall, remove Dekcraft from the browser extensions page. Your original
+YouTube feed returns on refresh. Export preferences first if you want to keep
+them. Source is included under the MIT license; fonts use the SIL OFL license.

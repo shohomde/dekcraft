@@ -1,0 +1,10 @@
+import {build} from 'esbuild';
+import {cp,mkdir,rm,writeFile} from 'node:fs/promises';
+await rm('dist',{recursive:true,force:true});
+await mkdir('dist/playground',{recursive:true});
+await cp('site','dist',{recursive:true,filter:p=>!p.endsWith('.tsx')});
+await cp('public','dist',{recursive:true});
+await cp('app/globals.css','dist/playground/app.css');
+await build({entryPoints:['site/playground/main.tsx'],outfile:'dist/playground/app.js',bundle:true,minify:true,format:'esm',jsx:'automatic',target:'es2022',define:{'process.env.NODE_ENV':'"production"'}});
+await writeFile('dist/.nojekyll','');
+console.log('Built Dekcraft website in dist/');

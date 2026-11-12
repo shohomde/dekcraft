@@ -1,0 +1,9 @@
+Dekcraft source: MIT license (see LICENSE).
+Sentence Transformers all-MiniLM-L6-v2 / Xenova ONNX conversion: Apache-2.0.
+https://huggingface.co/Xenova/all-MiniLM-L6-v2
+Pinned model revision and license are distributed in semantic/MODEL.txt and
+semantic/Apache-2.0.txt. Weights are approximately 23 MB (quantized ONNX).
+Transformers.js: Apache-2.0, https://github.com/huggingface/transformers.js
+ONNX Runtime: MIT, https://github.com/microsoft/onnxruntime
+Runtime license: semantic/ONNX-Runtime-LICENSE.txt.
+Local fonts: SIL Open Font License (included with fonts).

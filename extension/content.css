@@ -1,0 +1,5 @@
+[data-feedpilot-hidden="true"]{display:none!important}
+[data-feedpilot-flagged="true"]{outline:2px solid #db755d!important;outline-offset:-2px;border-radius:10px}
+[data-feedpilot-note]{display:flex!important;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;margin:6px 0;background:#fff2e9;border:1px solid #efd9c9;border-radius:7px;color:#805540;font:12px/1.5 system-ui;white-space:normal}
+[data-feedpilot-note] button{flex-shrink:0;font:11px system-ui;padding:6px 9px;background:#db755d;color:#fff;border:0;border-radius:5px;cursor:pointer}
+[data-feedpilot-note] button:focus-visible{outline:2px solid #805540;outline-offset:2px}
