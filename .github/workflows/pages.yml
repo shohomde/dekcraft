@@ -1,0 +1,57 @@
+name: Import and publish Dekcraft
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Import prepared source
+        if: hashFiles('dekcraft-source-import.zip') != ''
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import zipfile
+          with zipfile.ZipFile('dekcraft-source-import.zip') as archive:
+              for name in archive.namelist():
+                  path = Path(name)
+                  if path.is_absolute() or '..' in path.parts or '.git' in path.parts:
+                      raise ValueError('Invalid archive path')
+              for name in archive.namelist():
+                  if name != '.github/workflows/pages.yml':
+                      archive.extract(name, '.')
+          Path('dekcraft-source-import.zip').unlink()
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Import tested Dekcraft website and extension source'
+          git push
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run prepare:semantic
+      - run: npm test
+      - run: npm run typecheck
+      - run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
